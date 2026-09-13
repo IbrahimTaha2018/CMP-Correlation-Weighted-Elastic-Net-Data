@@ -17,12 +17,69 @@ authors:
 version: 1.0.0
 date-released: 2026-09-13
 
-# Add the GitHub repository URL before publication:
-repository-code: "https://github.com/[USERNAME]/[REPOSITORY]"
+repository-code: "https://github.com/IbrahimTaha2018/CMP-Correlation-Weighted-Elastic-Net-Data"
 
-# The underlying datasets include third-party data. Do not apply a blanket
-# open-source license to all files without checking the original sources.
 license: "OTHER"
 
-# Add when available:
-# doi: "https://doi.org/[DOI]"
+references:
+  - type: article
+    authors:
+      - family-names: "Gibb"
+        given-names: "Heloise"
+      - family-names: "Stoklosa"
+        given-names: "Jakub"
+      - family-names: "Warton"
+        given-names: "David I."
+      - family-names: "Brown"
+        given-names: "Alessandra M."
+      - family-names: "Andrew"
+        given-names: "Nigel R."
+      - family-names: "Cunningham"
+        given-names: "Saul A."
+    title: "Does morphology predict trophic position and habitat use of ant species and assemblages?"
+    journal: "Oecologia"
+    year: 2015
+    volume: 177
+    start: 519
+    end: 531
+    doi: "10.1007/s00442-014-3101-9"
+  - type: article
+    authors:
+      - family-names: "Richardot-Coulet"
+        given-names: "M."
+      - family-names: "Chessel"
+        given-names: "D."
+      - family-names: "Bournaud"
+        given-names: "M."
+    title: "Typological value of the benthos of old beds of a large river. Methodological approach"
+    journal: "Archiv für Hydrobiologie"
+    year: 1986
+    volume: 107
+    start: 363
+    end: 383
+  - type: article
+    authors:
+      - family-names: "Riphahn"
+        given-names: "Regina T."
+      - family-names: "Wambach"
+        given-names: "Achim"
+      - family-names: "Million"
+        given-names: "Andreas"
+    title: "Incentive effects in the demand for health care: a bivariate panel count data estimation"
+    journal: "Journal of Applied Econometrics"
+    year: 2003
+    volume: 18
+    issue: 4
+    start: 387
+    end: 405
+    doi: "10.1002/jae.680"
+  - type: report
+    authors:
+      - family-names: "Lo"
+        given-names: "S. N."
+      - family-names: "Ronchetti"
+        given-names: "E."
+    title: "Robust second order accurate inference for generalized linear models"
+    institution:
+      name: "University of Geneva"
+    year: 2006
