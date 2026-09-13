@@ -31,23 +31,35 @@ The datasets are provided to support transparency, reproducibility, and independ
     └── CrohnD.xlsx
 ```
 
+Every workbook contains a `Data` sheet holding the analysis matrix, with the response in the first column, named `y`, and one column per predictor. The two ecological workbooks also contain a `README` sheet recording the source, the preprocessing, and the response summaries, and a `VarMap` sheet giving the role of every column.
+
 ## Datasets
+
+| File | n | p | Response | Source package |
+| --- | ---: | ---: | --- | --- |
+| `11_Ant_abundance_Australia.xlsx` | 30 | 45 | `Monomorium.leae` | `mvabund` |
+| `16_Mollusk_communities.xlsx` | 163 | 29 | `Bit` | `PLNmodels` |
+| `docvisits.xlsx` | 1,812 | 22 | `docvisits` | `zic` |
+| `CrohnD.xlsx` | 117 | 8 | `nrAdvE` | `robustbase` |
+
+Here `p` counts predictor columns, excluding the response.
+
+---
 
 ### 1. Ant Abundance – Australia
 
 **File:** `11_Ant_abundance_Australia.xlsx`
 
-This dataset contains abundance data for an epigaeic ant species together with CLR-transformed abundances of co-occurring ant species and habitat variables.
+Abundance of one epigaeic ant species across 30 sites in south-eastern Australia, together with centred log-ratio (CLR) abundances of the 40 co-occurring species and 5 measured habitat variables.
 
 - Observations: 30
-- Predictors: 45
+- Predictors: 45 (40 CLR co-abundances, 5 habitat variables)
 - Response: `Monomorium.leae`
-- Source R package: `mvabund`
-- R package version used in the prepared dataset: 4.2.8
+- Source: `mvabund::antTraits`, package version 4.2.8
 
-The workbook contains documentation and variable-mapping information describing the variables and preprocessing.
+The response species is excluded from the CLR closure, so no predictor is an algebraic function of the response. Because the CLR predictors are compositional, they satisfy a sum-to-zero constraint by construction; together with p > n this makes the cross-product matrix exactly singular, and it is the source of the multicollinearity reported in the manuscript. No log total count is exported.
 
-Because CLR-transformed predictors are compositional, they are subject to the sum-to-zero constraint. This should be considered when interpreting the predictor structure.
+The response was fixed a priori. The most abundant species detected in at least 30 percent of sites, `Iridomyrmex.rufoniger`, is right-censored at 20 with 9 of the 30 sites at the cap, which makes it unsuitable for an unbounded count model.
 
 **Primary source citation:**
 
@@ -59,20 +71,18 @@ Gibb, H., Stoklosa, J., Warton, D. I., Brown, A. M., Andrew, N. R. and Cunningha
 
 **File:** `16_Mollusk_communities.xlsx`
 
-This dataset contains mollusk abundance data together with CLR-transformed abundances of non-focal species and site, season, method, and duration covariates.
+Abundance of one mollusk species across 163 samples, together with CLR abundances of the non-focal species and dummy-coded site, season and method covariates plus a numeric exposure duration.
 
 - Observations: 163
-- Predictors: 30
-- Source R package: `PLNmodels`
-- Dataset: `mollusk`
+- Predictors: 29 (17 CLR co-abundances, 11 covariate dummies, 1 numeric duration)
+- Response: `Bit`
+- Source: `PLNmodels::mollusk`
 
-The prepared dataset includes preprocessing and derived variables used for the statistical analysis. The workbook contains documentation and variable-mapping information.
-
-Because CLR-transformed predictors are compositional, they satisfy a sum-to-zero constraint and may exhibit structural multicollinearity.
+The response species is excluded from the CLR closure. Site, season and method are dummy-coded against an explicit baseline: `GGravier1`, `automn` and `string` respectively. As with the ant data, the CLR predictors satisfy a sum-to-zero constraint and are the source of the structural multicollinearity. No log total count is exported.
 
 **Primary source citation:**
 
-Richardot-Coulet, M., Chessel, D. and Bournaud, M. (1986). Typological value of the benthos of old beds of a large river. Methodological approach. *Archiv fur Hydrobiologie*, 107, 363–383.
+Richardot-Coulet, M., Chessel, D. and Bournaud, M. (1986). Typological value of the benthos of old beds of a large river. Methodological approach. *Archiv für Hydrobiologie*, 107, 363–383.
 
 ---
 
@@ -80,13 +90,14 @@ Richardot-Coulet, M., Chessel, D. and Bournaud, M. (1986). Typological value of 
 
 **File:** `docvisits.xlsx`
 
-This dataset contains the number of doctor visits during the previous three months together with demographic, socioeconomic, employment, insurance, and health-related covariates.
+Number of doctor visits during the previous three months, together with demographic, socioeconomic, employment, insurance and health-related covariates.
 
 - Observations: 1,812
+- Predictors: 22
 - Response: `docvisits`
-- Source R package: `zic`
+- Source: `zic::docvisits`
 
-The dataset is based on data from the German Socioeconomic Panel and is documented in the `zic` R package.
+The data are drawn from the German Socioeconomic Panel. Nine of the twenty-two predictors are functions of age, which is part of the published specification and the source of the collinearity in this application.
 
 **Primary source citation:**
 
@@ -98,13 +109,12 @@ Riphahn, R. T., Wambach, A. and Million, A. (2003). Incentive effects in the dem
 
 **File:** `CrohnD.xlsx`
 
-This dataset contains adverse-event counts and patient-level covariates from a study involving patients with Crohn's disease.
+Adverse-event counts and patient-level covariates from a study of patients with Crohn's disease.
 
 - Observations: 117
-- Variables: 9
+- Predictors: 8
 - Response: `nrAdvE`
-
-The dataset is documented in the `robustbase` R package.
+- Source: `robustbase::CrohnD`
 
 **Primary source citation:**
 
@@ -114,17 +124,13 @@ Lo, S. N. and Ronchetti, E. (2006). Robust Second Order Accurate Inference for G
 
 ## Data Preparation
 
-The datasets are provided in Excel (`.xlsx`) format.
+The datasets are supplied in Excel (`.xlsx`) format and are derived from the packaged data rather than being verbatim copies of it. The `docvisits` and `CrohnD` workbooks reproduce the packaged variables directly. In the ant and mollusk workbooks the response is one species column taken from the packaged abundance matrix, and the predictors are the CLR transform of the remaining species columns, computed with a pseudocount of 0.5 after removing species present in fewer than 5 percent of rows, together with the packaged environmental or design variables. The prevalence filter is applied to the predictor block only and never consults the response.
 
-Some files contain transformed or derived variables prepared for the analyses in the associated manuscript. Therefore, these files should not necessarily be considered identical copies of the original datasets distributed through the corresponding R packages.
-
-For the ant and mollusk datasets, the workbooks contain additional documentation sheets describing data sources, variable roles, and/or preprocessing.
-
-The datasets are supplied specifically as supplementary research materials for the manuscript identified above.
+Every value in each workbook was checked element-wise against the corresponding packaged dataset. The `README` and `VarMap` sheets in the two ecological workbooks document the source, the transformation, and the role of every exported column.
 
 ## Reproducibility
 
-The purpose of this repository is to make the data used in the manuscript available to researchers, reviewers, and readers for reproducibility and independent verification.
+The purpose of this repository is to make the data used in the manuscript available to researchers, reviewers and readers for reproducibility and independent verification.
 
 Researchers using these datasets should cite:
 
@@ -145,11 +151,9 @@ Please cite the associated manuscript as follows:
 
 ## Data Provenance and Licensing
 
-The datasets originate from previously published studies and/or publicly distributed R packages.
+The datasets originate from previously published studies distributed through publicly available R packages.
 
-The primary source citations listed above were taken from the dataset citation/source documentation supplied with the prepared datasets.
-
-Users should consult the original sources and applicable package/data licenses before redistributing or reusing third-party data.
+Users should consult the original sources and applicable package and data licences before redistributing or reusing third-party data.
 
 The repository authors' documentation and other original materials are provided for research reproducibility. Any third-party dataset remains subject to the terms and attribution requirements of its original source.
 
@@ -167,4 +171,4 @@ No claim of ownership is made over third-party datasets.
 
 ## Disclaimer
 
-These datasets are provided for academic research and reproducibility purposes. Please refer to the associated manuscript and original data sources for the authoritative description of data collection, measurement, and study design.
+These datasets are provided for academic research and reproducibility purposes. Please refer to the associated manuscript and the original data sources for the authoritative description of data collection, measurement and study design.
