@@ -1,25 +1,31 @@
 cff-version: 1.2.0
+
 title: "Supplementary Datasets for An Analytical Family of Correlation-Weighted Elastic-Net Estimators for the Conway–Maxwell–Poisson Regression Model"
+
 message: "If you use these datasets, please cite the associated manuscript and the original sources of the individual datasets."
+
 type: dataset
 
 authors:
   - family-names: "Taha"
     given-names: "Ibrahim M."
     affiliation: "Department of Applied Statistics and Econometrics, Faculty of Graduate Studies for Statistical Research, Cairo University, Giza 12613, Egypt; Department of Mathematics, Statistics and Insurance, Faculty of Management Sciences, Sadat Academy for Management Sciences, Corniche El-Nil, Maadi, Cairo 2222, Egypt"
+
   - family-names: "Mousa"
     given-names: "Amany M."
     affiliation: "Department of Applied Statistics and Econometrics, Faculty of Graduate Studies for Statistical Research, Cairo University, Giza 12613, Egypt"
+
   - family-names: "Abonazel"
     given-names: "Mohamed R."
     affiliation: "Department of Applied Statistics and Econometrics, Faculty of Graduate Studies for Statistical Research, Cairo University, Giza 12613, Egypt"
 
 version: 1.0.0
-date-released: 2026-09-13
+
+date-released: "2026-10-03"
 
 repository-code: "https://github.com/IbrahimTaha2018/CMP-Correlation-Weighted-Elastic-Net-Data"
 
-license: "OTHER"
+license: "CC-BY-4.0"
 
 references:
   - type: article
@@ -43,6 +49,7 @@ references:
     start: 519
     end: 531
     doi: "10.1007/s00442-014-3101-9"
+
   - type: article
     authors:
       - family-names: "Richardot-Coulet"
@@ -57,6 +64,7 @@ references:
     volume: 107
     start: 363
     end: 383
+
   - type: article
     authors:
       - family-names: "Riphahn"
@@ -73,6 +81,7 @@ references:
     start: 387
     end: 405
     doi: "10.1002/jae.680"
+
   - type: report
     authors:
       - family-names: "Lo"
